@@ -6,8 +6,12 @@ type person struct {
 	firstName  string
 	secondName string
 	contactInfo
+	dog
 }
-
+type dog struct {
+	name string
+	breed string
+}
 type contactInfo struct {
 	email string
 	zip   int
@@ -15,6 +19,10 @@ type contactInfo struct {
 
 func (p person) printPerson() {
 	fmt.Printf("%+v\n", p)
+}
+
+func (p *person) updateName(newFirstName string) {
+	p.firstName = newFirstName
 }
 
 func main() {
@@ -26,11 +34,6 @@ func main() {
 			zip:   90210,
 		},
 	}
-	fmt.Println(alex)
-	var alexsDog person
-	fmt.Println(alexsDog)
+	alex.updateName("Alox")
 	alex.printPerson()
-	alexsDog.printPerson()
-	alexsDog.firstName = "Fido"
-	alexsDog.printPerson()
 }
