@@ -1,16 +1,24 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
+
+func evenOrOdd(){
+	[1, 2, 3, 4, 5 ,6 ,7]
+}
 
 func main() {
-	d := newDeck()
-	hand, remainingDeck := deal(d, 6)
-	hand.print()
-	remainingDeck.shuffle()
-	fmt.Println()
-	greeting := "oh hello!"
-	fmt.Println(greeting)
-	fmt.Println([]byte(d.toString()))
+	deck := newDeck()
+	const fileName = "./deck.txt"
+	err := deck.saveDeckToFile(fileName)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	deckLoadedFromFile, err := loadDeckFromFile(fileName)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	deckLoadedFromFile.print()
+	_ = deckLoadedFromFile.saveDeckToFile("./deck_1.txt")
 }
