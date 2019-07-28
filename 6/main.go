@@ -35,6 +35,14 @@ func main() {
 		fmt.Println("get error ", err)
 		os.Exit(1)
 	}
+	//readBody(response)
+
+	written, err := io.Copy(os.Stdout, response.Body)
+	fmt.Println()
+	fmt.Println("byte copied ", written)
+}
+
+func readBody(response *http.Response) {
 	bs := make([]byte, 99999)
 	n, err := response.Body.Read(bs)
 	if err == io.EOF {
