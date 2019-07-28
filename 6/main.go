@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io"
+	"net/http"
+	"os"
+)
 
 type englishBot struct {
 }
@@ -24,4 +29,19 @@ func main() {
 	printGreeting(sb)
 	eb := englishBot{}
 	printGreeting(eb)
+
+	response, err := http.Get("http://google.com")
+	if err != nil {
+		fmt.Println("get error ", err)
+		os.Exit(1)
+	}
+	bs := make([]byte, 99999)
+	n, err := response.Body.Read(bs)
+	if err == io.EOF {
+		fmt.Println("EOF ok")
+	} else if err != nil {
+		fmt.Println("body read err", err)
+	}
+	fmt.Println(string(bs))
+	fmt.Println("byte read: ", n)
 }
