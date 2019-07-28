@@ -42,7 +42,7 @@ func main() {
 	//readBody(response)
 
 	lw := logWriter{}
-	n, e := lw.Write([]byte{0,0,0,0})
+	n, e := lw.Write([]byte{0, 0, 0, 0})
 	fmt.Println(n)
 	fmt.Println(e)
 
@@ -50,6 +50,12 @@ func main() {
 	fmt.Println()
 	fmt.Println("byte copied ", written)
 	fmt.Println(os.File{})
+
+	s := square{sideLength: 0.5}
+	s.printArea()
+
+	t := triangle{height: 0.4, base: 0.6}
+	t.printArea()
 }
 
 func (logWriter) Write(bs []byte) (int, error) {
