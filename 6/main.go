@@ -24,6 +24,10 @@ func (eb englishBot) getGreeting() string {
 func (sb spanishBot) getGreeting() string {
 	return "Hola!"
 }
+
+type logWriter struct {
+}
+
 func main() {
 	sb := spanishBot{}
 	printGreeting(sb)
@@ -37,9 +41,20 @@ func main() {
 	}
 	//readBody(response)
 
+	lw := logWriter{}
+	n, e := lw.Write([]byte{0,0,0,0})
+	fmt.Println(n)
+	fmt.Println(e)
+
 	written, err := io.Copy(os.Stdout, response.Body)
 	fmt.Println()
 	fmt.Println("byte copied ", written)
+	fmt.Println(os.File{})
+}
+
+func (logWriter) Write(bs []byte) (int, error) {
+	fmt.Println(string(bs))
+	return len(bs), nil
 }
 
 func readBody(response *http.Response) {
